@@ -1,7 +1,12 @@
 import java.util.Arrays;
 import java.util.List;
+import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
+import java.util.TreeMap;
+import java.util.TreeSet;
+
+import models.Maquina;
 
 import controllers.MaquinaController;
 import models.Maquina;
@@ -9,6 +14,27 @@ import models.Maquina;
 public class App {
     public static void main(String[] args) throws Exception {
         List<Maquina> maquinas = crearMaquinas();
+        MaquinaController controlador = new MaquinaController();
+
+        Stack<Maquina> filtradas = controlador.filtrarPorSubred(maquinas, 100);
+        System.out.println("Filtradas por Subred" );
+        filtradas.forEach(System.out::print);
+
+        TreeSet<Maquina> ordenada = controlador.ordenarPorSubred(filtradas);
+        System.out.println("Ordenadas por Subred " );
+        ordenada.forEach(System.out::print);
+
+        TreeMap<Integer , Queue<Maquina>> agrupadas = controlador.agruparPorRiesgo(maquinas);
+        System.out.println("Agrupadas Por Riesgo" + riesgo  );
+        
+        
+
+        Stack<Maquina> explotar = controlador.explotarGrupo(agrupadas);
+        System.out.println("Explotadas");
+        
+
+
+    
 
     }
 
@@ -66,6 +92,9 @@ public class App {
                 new Maquina("Nodo6", "169.238.150.174", Arrays.asList(6, 14, 3)),
                 new Maquina("DB13", "71.248.50.86", Arrays.asList(17, 11, 12)));
         return maquinas;
+
+        
+
 
     }
 }
